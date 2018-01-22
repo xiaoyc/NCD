@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkCrawlerManager", "NetworkCrawlerManager\NetworkCrawlerManager.csproj", "{3AEB307C-A9A5-4642-851A-9E6A6CB0FF14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkCrawler.Mysql", "NetworkCrawler.Mysql\NetworkCrawler.Mysql.csproj", "{F94FE1D3-71A3-416E-B656-8B00A1307998}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AEB307C-A9A5-4642-851A-9E6A6CB0FF14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AEB307C-A9A5-4642-851A-9E6A6CB0FF14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AEB307C-A9A5-4642-851A-9E6A6CB0FF14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AEB307C-A9A5-4642-851A-9E6A6CB0FF14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F94FE1D3-71A3-416E-B656-8B00A1307998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F94FE1D3-71A3-416E-B656-8B00A1307998}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F94FE1D3-71A3-416E-B656-8B00A1307998}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F94FE1D3-71A3-416E-B656-8B00A1307998}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {55DB04C5-8A86-46AD-8CDD-25734DE664C1}
+	EndGlobalSection
+EndGlobal
