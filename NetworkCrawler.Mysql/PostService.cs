@@ -31,9 +31,7 @@ namespace NetworkCrawler.Mysql
 
         public long InsertPost(Post p , bool forceInsert)
         {
-            long postId = 0;
-
-            p = new Post() { Title = "test2", CategoryName = "testcategory2", Content = "test", Image = new byte[1], CreateTime = DateTime.Now, Description = "test", VideoUrl = "testurl" };
+            long postId = 0;            
 
             
             var categoryId = categoryService.InsertCategory(p.CategoryName);

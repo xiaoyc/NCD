@@ -7,6 +7,6 @@ namespace NetworkCrawler.Mysql
 {
     public class Service
     {
-       public MySqlConnection conn = new MySqlConnection("server=127.0.0.1;database=resource2;uid=root;pwd=root;charset='gbk'");
+       public MySqlConnection conn = new MySqlConnection("server=127.0.0.1;database=resource;uid=root;pwd=root;charset='gbk'");
     }
 }
