@@ -19,7 +19,7 @@ namespace NetworkCrawlerManager.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "value1", "value332" };
         }
 
         // GET: api/Post/5
@@ -31,11 +31,14 @@ namespace NetworkCrawlerManager.Controllers
         
         // POST: api/Post
         [HttpPost]
-        public void Post([FromBody]string value)
+        public string Post([FromBody]Post post)
         {
-            var post = JsonConvert.DeserializeObject<Post>(value);
-            postService.InsertPost(post, false);
 
+            string tt = post.ToString();
+            //  var post = JsonConvert.DeserializeObject<Post>(value);
+            //postService.InsertPost(post, false);
+
+            return JsonConvert.SerializeObject(post);
         }
         
         // PUT: api/Post/5
