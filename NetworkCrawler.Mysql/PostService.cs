@@ -2,19 +2,20 @@
 using Dapper;
 using NetworkCrawler.Mysql.Models;
 using Dapper.Contrib.Extensions;
+using System.Collections.Generic;
 
 namespace NetworkCrawler.Mysql
 {
-    
-    public class PostService :Service
+
+    public class PostService : Service
     {
         CategoryService categoryService = new CategoryService();
         TagService tagService = new TagService();
         ActorService actorService = new ActorService();
 
-        public  void GetPosts()
+        public void GetPosts()
         {
-            var posts =  conn.GetAll<Post>();
+            var posts = conn.GetAll<Post>();
         }
 
         public Post GetPostByTitle(string postTitle)
@@ -29,42 +30,52 @@ namespace NetworkCrawler.Mysql
             return null;
         }
 
-        public long InsertPost(Post p , bool forceInsert)
+        public long InsertOrUpdatePost(Post p)
         {
-            long postId = 0;            
+            long postId = 0;
 
-            
+
             var categoryId = categoryService.InsertCategory(p.CategoryName);
 
-            if (!forceInsert)
-            {
-                var post = GetPostByTitle(p.Title);
 
-                if (post != null)
-                {
-                    postId = post.Id;
-                }
-               
+            var post = GetPostByTitle(p.Title);
+
+            if (post != null)
+            {
+                conn.Update(p);
+                postId = p.Id;
             }
             else
             {
-                conn.Execute("delete from post where postId =@PostId", new { PostId = postId });
-            }
-
-            if (postId == 0)
                 postId = conn.Insert(p);
-
-            if (p.Tags != null && p.Tags.Length > 0)
-            {
-                InsertPostTag(postId, p.Tags);
             }
 
-            if (p.Actors != null && p.Actors.Length > 0)
+            if (!string.IsNullOrWhiteSpace(p.Tags))
             {
-                InsertPostActor(postId, p.Actors);
+                InsertPostTag(postId, p.Tags.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
+            }
+
+            if (!string.IsNullOrWhiteSpace(p.Actors))
+            {
+                InsertPostActor(postId, p.Actors.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
             }
 
             return postId;
+        }
+
+        public IList<Post> GetAllPosts()
+        {
+            return conn.Query<Post>(@"select p1.*  ,GROUP_CONCAT(actor.name SEPARATOR ', ')  as actors  from (SELECT post.* ,GROUP_CONCAT(tag.Title SEPARATOR ', ')  as tags ,
+                                     category.title as categoryName
+                                     FROM post
+                                    join posttag on post.id = posttag.postid
+                                    join tag on tag.id = posttag.TagId
+                                    join category on category.id = post.categoryId
+                                    ) as p1
+                                    join postactor on p1.id = postactor.postid
+                                    join actor on actor.id = postactor.actorId
+                                    GROUP BY p1.id
+                                    ").AsList();
         }
 
         public long InsertPostTag(long postId, string[] tags)
@@ -93,7 +104,7 @@ namespace NetworkCrawler.Mysql
             {
                 var actorId = actorService.InsertActor(actor);
 
-                conn.Insert(new PostActorMapping() { PostId = postId, ActorId = actorId});
+                conn.Insert(new PostActorMapping() { PostId = postId, ActorId = actorId });
                 count++;
             }
 

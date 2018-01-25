@@ -15,11 +15,11 @@ namespace NetworkCrawlerManager.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            dBHelper.GetPosts();
+            //dBHelper.GetPosts();
 
-            dBHelper.GetPostByTitle("test");
+            //dBHelper.GetPostByTitle("test");
 
-            dBHelper.InsertPost(null,false);
+           // dBHelper.InsertPost(null,false);
 
             return new string[] { "value1", "value2" };
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetworkCrawler.Mysql;
 using NetworkCrawler.Mysql.Models;
+using NetworkCrawlerManager.Core;
 using Newtonsoft.Json;
 
 namespace NetworkCrawlerManager.Controllers
@@ -39,6 +40,17 @@ namespace NetworkCrawlerManager.Controllers
             //postService.InsertPost(post, false);
 
             return JsonConvert.SerializeObject(post);
+        }
+        [HttpGet("GetAllPosts")]
+        public JsonResult GetAllPosts()
+        {
+            var posts = postService.GetAllPosts();
+
+            var ttt = JsonConvert.SerializeObject(posts);
+
+            var sss= JsonConvert.DeserializeObject<List<Post>>(ttt);
+
+            return Json(posts);
         }
         
         // PUT: api/Post/5

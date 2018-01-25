@@ -15,16 +15,17 @@ namespace NetworkCrawler.Mysql.Models
         public string Content { get; set; }
         public string VideoUrl { get; set; }
         public byte[] Image { get; set; }
-
+        public string OriginalPageUrl { get; set; }
+        public int OriginalPageId { get; set; }
         public long CategoryId { get; set; }
 
         [Write(false)]
         public string CategoryName { get; set; }
 
         [Write(false)]
-        public string[] Tags { get; set; }
+        public string Tags { get; set; }
         [Write(false)]
-        public string[] Actors { get; set; }
+        public string Actors { get; set; }
 
         public DateTime CreateTime { get; set; }
     }
