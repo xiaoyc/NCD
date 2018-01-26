@@ -26,7 +26,7 @@ namespace NetworkCrawler.Mysql.Models
         public string Tags { get; set; }
         [Write(false)]
         public string Actors { get; set; }
-
+        public bool IsDraft { get; set; }
         public DateTime CreateTime { get; set; }
     }
 }

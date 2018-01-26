@@ -52,7 +52,7 @@ namespace NetworkCrawlerManager.Core
            
             spider.Downloader = new WebDriverDownloader(Browser.Chrome);
             spider.ThreadNum = 1;
-
+           
             // 启动爬虫
             spider.Run();
         }

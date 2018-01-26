@@ -63,14 +63,19 @@ namespace NetworkCrawler.Mysql
             return postId;
         }
 
-        public IList<Post> GetAllPosts()
+        public IList<Post> GetDraftPosts()
+        {
+            return conn.Query<Post>(@"select * from post where isdraft=1").AsList();
+        }
+            public IList<Post> GetAllReadyPosts()
         {
             return conn.Query<Post>(@"select p1.*  ,GROUP_CONCAT(actor.name SEPARATOR ', ')  as actors  from (SELECT post.* ,GROUP_CONCAT(tag.Title SEPARATOR ', ')  as tags ,
                                      category.title as categoryName
-                                     FROM post
+                                     FROM post 
                                     join posttag on post.id = posttag.postid
                                     join tag on tag.id = posttag.TagId
                                     join category on category.id = post.categoryId
+                                    where not exists ( select 1 from jPost where title = post.title )
                                     ) as p1
                                     join postactor on p1.id = postactor.postid
                                     join actor on actor.id = postactor.actorId

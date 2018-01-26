@@ -41,18 +41,23 @@ namespace NetworkCrawlerManager.Controllers
 
             return JsonConvert.SerializeObject(post);
         }
-        [HttpGet("GetAllPosts")]
-        public JsonResult GetAllPosts()
+
+        [HttpGet("GetDraftPosts")]
+        public JsonResult GetDraftPosts()
         {
-            var posts = postService.GetAllPosts();
-
-            var ttt = JsonConvert.SerializeObject(posts);
-
-            var sss= JsonConvert.DeserializeObject<List<Post>>(ttt);
+            var posts = postService.GetDraftPosts();
 
             return Json(posts);
         }
-        
+
+        [HttpGet("GetAllReadyPosts")]
+        public JsonResult GetAllReadyPosts()
+        {
+            var posts = postService.GetDraftPosts();
+
+            return Json(posts);
+        }
+
         // PUT: api/Post/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
